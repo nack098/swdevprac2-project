@@ -1,13 +1,15 @@
 Authentication
-- Registeration
-- Validation
-- Login
+[x] Setup Next Auth
+[ ] Setup Credentials
+[ ] Registeration
+[ ] Validation
+[ ] Login
 
 Role management
-- Admin/User
+[ ] Admin/User
 
 Product
-- Viewing
-- Order
-- Validation
-- Delete Booking
+[ ] Viewing
+[ ] Order
+[ ] Validation
+[ ] Delete Booking
