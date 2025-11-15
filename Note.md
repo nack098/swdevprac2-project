@@ -6,10 +6,15 @@ Authentication
 [ ] Login
 
 Role management
-[ ] Admin/User
+[ ] Admin
+[ ] User
 
 Product
 [ ] Viewing
 [ ] Order
 [ ] Validation
 [ ] Delete Booking
+
+Apis
+[x] Backend Draft
+[ ] Backend Security
