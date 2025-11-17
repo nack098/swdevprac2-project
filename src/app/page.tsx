@@ -1,65 +1,102 @@
-import Image from "next/image";
+"use client";
+import { Box, Carousel, Heading, IconButton, Image, Link, SimpleGrid, Span, Stack, Text } from "@chakra-ui/react";
+import { useRef } from "react";
+import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
+import NextLink from "next/link"
+import { FaAngleRight } from "react-icons/fa";
+
+const items = [
+  "/carousel1.webp",
+  "/carousel2.webp",
+  "/carousel3.webp",
+]
+
+function ProductCard() {
+  /*TODO: Finish this thing */
+  return (
+    <Link as={NextLink} href="/" boxShadow="xl" padding="1rem" rounded="sm" display="block">
+      <Image src="/carousel2.webp" objectFit="cover" height="25rem" rounded="sm" />
+      <Box padding="0.5rem" marginTop="0.5rem">
+        <Heading fontWeight="medium">Name</Heading>
+        <Text fontSize="sm">DD/MM/YYYY</Text>
+        <Text display="flex" marginTop="2rem" fontSize="lg" textAlign="right" justifyContent="end">###.##฿</Text>
+      </Box>
+    </Link>
+  )
+}
 
 export default function Home() {
+  const playButtonRef = useRef<HTMLButtonElement>(null);
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <>
+      <Carousel.Root
+        slideCount={items.length}
+        allowMouseDrag
+        slidesPerMove={1}
+        autoplay={{ delay: 4000 }}
+        loop
+        onDragStatusChange={(details) => !details.isDragging ? playButtonRef.current?.click() : null}
+      >
+        <Carousel.ItemGroup >
+          {items.map((link, index) => (
+            <Carousel.Item key={index} index={index}>
+              <Image src={link} height="35rem" width="full" objectFit="cover" />
+            </Carousel.Item>
+          ))}
+        </Carousel.ItemGroup>
+
+        <Carousel.Control justifyContent="center" gap="4">
+          <Carousel.PrevTrigger asChild>
+            <IconButton size="xs" variant="ghost">
+              <LuChevronLeft />
+            </IconButton>
+          </Carousel.PrevTrigger>
+
+          <Carousel.Indicators />
+
+          <Carousel.NextTrigger asChild>
+            <IconButton size="xs" variant="ghost">
+              <LuChevronRight />
+            </IconButton>
+          </Carousel.NextTrigger>
+
+          <Carousel.AutoplayTrigger asChild>
+            <IconButton aria-label="Toggle autoplay" size="sm" display="none" ref={playButtonRef} />
+          </Carousel.AutoplayTrigger>
+        </Carousel.Control>
+      </Carousel.Root>
+      <Heading as="h1" justifyContent="center" display="flex" width="full" fontWeight="bold" fontSize="2xl" textAlign="center" marginTop="2rem">
+        Welcome to Drunkman Art Toys Shop!!
+      </Heading>
+      <Heading as="h4" justifyContent="center" display="flex" width="full" fontWeight="normal" fontSize="md" textAlign="center" marginBottom="3rem">
+        We are so drunk that's why we open an art toys shop
+      </Heading>
+      <Box paddingX="7rem">
+        <hr />
+      </Box>
+      <Stack direction="row" justifyContent="space-between" paddingX="3rem" marginTop="2rem">
+        <Heading as="h1" fontWeight="bold">
+          Our New Products
+        </Heading>
+        <Link
+          as={NextLink}
+          href="/products"
+          textDecorationColor="bg"
+          transitionTimingFunction="ease-out"
+          transition="colors" transitionDelay="300ms"
+          _hover={{ textDecorationColor: "inherit" }}
+        >
+          All Products<FaAngleRight />
+        </Link>
+      </Stack>
+      <SimpleGrid minChildWidth="20rem" gap="5rem" paddingX="5rem" marginY="2rem">
+        {/* Show 5 newest products (also change this shit to for loop or I will kill you */}
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+      </SimpleGrid>
+    </>
   );
 }
