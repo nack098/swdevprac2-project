@@ -1,11 +1,12 @@
 "use client";
 
 import { SessionProvider as NextAuthProvider } from "next-auth/react"
+import { Provider as ChakraProvider } from "./ui/provider";
 
 interface Props {
-    children: React.ReactNode
+  children: React.ReactNode
 }
 
 export default function Providers({ children }: Props) {
-    return <NextAuthProvider> {children} </NextAuthProvider>;
+  return (<ChakraProvider><NextAuthProvider> {children} </NextAuthProvider></ChakraProvider>);
 }
