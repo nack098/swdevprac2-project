@@ -23,17 +23,23 @@ export async function register(data: RegisterData) {
 }
 
 export async function login(data: LoginData) {
-  return await axios.post(ROOT_URL + "/login", data, {
+  const res = await axios.post(ROOT_URL + "/login", data, {
     headers: {
       "Content-Type": "application/json",
     },
   });
+
+  return { data: res.data, status: res.status, statusText: res.statusText };
 }
 
 export async function logout() {
-  return await axios.get(ROOT_URL + "/logout");
+  const res = await axios.get(ROOT_URL + "/logout");
+
+  return { status: res.status, statusText: res.statusText };
 }
 
 export async function me() {
-  return await axios.get(ROOT_URL + "me");
+  const res = await axios.get(ROOT_URL + "/me");
+
+  return { data: res.data, status: res.status, statusText: res.statusText };
 }
