@@ -1,6 +1,7 @@
 "use client";
 
 import { getById } from "@/libs/apis/arttoys";
+import { del, put } from "@/libs/apis/orders";
 import {
   Button,
   ButtonGroup,
@@ -10,6 +11,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default async function EditOrderPage({
@@ -21,14 +23,42 @@ export default async function EditOrderPage({
   const toyData = await getById(orderId);
   const toyName = toyData.data.name;
   const [amount, setAmount] = useState("1"); // change to number when submit
+  const router = useRouter();
 
   const handleUpdate = async () => {
     // Implement order submission logic here
-    console.log(`Ordering ${amount} of ${toyName}`);
+    try {
+      const orderData: OrderPutData = {
+        orderAmount: Number(amount),
+      };
+      const res = await put(orderId, orderData);
+
+      if (res.status !== 200) {
+        console.error("Order update error:", res.statusText);
+        return null;
+      }
+
+      router.replace("/myorders");
+    } catch (error) {
+      console.error("Error:", error);
+      return null;
+    }
   };
+
   const handleDelete = async () => {
     // Implement order deletion logic here
-    console.log(`Deleting order of ${toyName}`);
+    try {
+      const res = await del(orderId);
+
+      if (res.status !== 200) {
+        console.error("Order deletion error:", res.statusText);
+        return null;
+      }
+      router.replace("/myorders");
+    } catch (error) {
+      console.error("Error:", error);
+      return null;
+    }
   };
   return (
     <VStack>
