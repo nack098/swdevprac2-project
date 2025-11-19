@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "@/components/Providers";
 import Navbar from "@/components/Navbar";
 import { Box } from "@chakra-ui/react";
+import ReduxProvider from "@/redux/ReduxProvider";
 
 const roboto = Roboto({
   subsets: ["latin", "latin-ext"],
@@ -28,12 +29,14 @@ export default function RootLayout({
       <body
         className={`${roboto.className} ${roboto_mono.className} antialiased p-0 m-0 w-full h-full`}
       >
-        <Providers>
-          <Box minH="100vh" bg={{ _light: "white", _dark: "black" }}>
-            <Navbar />
-            {children}
-          </Box>
-        </Providers>
+        <ReduxProvider>
+          <Providers>
+            <Box minH="100vh" bg={{ _light: "white", _dark: "black" }}>
+              <Navbar />
+              {children}
+            </Box>
+          </Providers>
+        </ReduxProvider>
       </body>
     </html>
   );

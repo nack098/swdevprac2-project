@@ -14,6 +14,7 @@ interface ArtToysData {
     sku: string,
     name: string,
     description: string,
+    arrivalDate: string,
     availableQuota: number,
     posterPicture: string,
 }
@@ -25,4 +26,16 @@ interface OrderCreateData {
 
 interface  OrderPutData {
     orderAmount: number;
+}
+
+interface ProductDetail {
+    _id: string;
+    sku: string;
+    name: string;
+    description: string;
+    arrivalDate: string;
+    availableQuota: number;
+    posterPicture: string;
+    createdAt: string;
+    updatedAt: string;
 }
