@@ -21,7 +21,7 @@ export default function Navbar() {
     >
       <Link as={NextLink} href="/" textDecoration="none">
         <Box display="inline-flex" justifyItems="center" alignItems="center" gap="0.5rem">
-          <Image src="logo.webp" height="3rem" />
+          <Image src="/logo.webp" height="3rem" />
           <Box>
             <Heading as="h1" fontWeight="bold" lineHeight="1rem">Drunkman</Heading>
             <Heading as="p" fontSize="xs" lineHeight="1rem">Art Toys Shop</Heading>
