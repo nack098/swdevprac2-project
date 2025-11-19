@@ -1,5 +1,6 @@
 "use client";
 
+import { getById } from "@/libs/apis/arttoys";
 import {
   Button,
   ButtonGroup,
@@ -11,9 +12,14 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-export default function EditOrderPage() {
-  const [toyName, setToyName] = useState("Toy1");
-  const toyID = ""; // replace with actual id from the product
+export default async function EditOrderPage({
+  params,
+}: {
+  params: Promise<{ orderId: string }>;
+}) {
+  const { orderId } = await params;
+  const toyData = await getById(orderId);
+  const toyName = toyData.data.name;
   const [amount, setAmount] = useState("1"); // change to number when submit
 
   const handleUpdate = async () => {
