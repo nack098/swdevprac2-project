@@ -12,28 +12,65 @@ import {
   useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { LuLock, LuMail, LuPhone, LuUser } from "react-icons/lu";
+import authen from "@/libs/apis/authen";
+import { signIn } from "@/libs/auth";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [tel, setTel] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<string[]>(["member"]);
+  // const [role, setRole] = useState<string[]>(["member"]);
+  const router = useRouter();
 
-  const roleSelect = createListCollection({
-    items: [
-      { label: "Member", value: "member" },
-      { label: "Admin", value: "admin" },
-    ],
-  });
+  // const roleSelect = createListCollection({
+  //   items: [
+  //     { label: "Member", value: "member" },
+  //     { label: "Admin", value: "admin" },
+  //   ],
+  // });
 
   const normalSize = useBreakpointValue({ base: false, sm: false, md: true });
 
-  function handleRegister() {
-    console.log("HandleRegister", name, email, tel, password, role[0]);
-  }
+  const handleRegister = async () => {
+    try {
+      const registerData: RegisterData = {
+        name: name as string,
+        email: email as string,
+        tel: tel as string,
+        password: password as string,
+      };
+      const res = await authen.register(registerData);
+
+      if (res.status !== 201) {
+        console.error("Register error:", res.statusText);
+        return null;
+      }
+
+      const data = res.data;
+      const result = await signIn("credentials", {
+        email: data.email,
+        password: password,
+        redirect: false,
+      });
+      if (!result) {
+        console.error("Login failed: No result returned");
+        return;
+      }
+      if (result.ok && !result.error) {
+        router.push("/");
+        return;
+      } else {
+        console.error("Login failed:", result.error);
+      }
+    } catch (error) {
+      console.error("Authorize Error:", error);
+      return null;
+    }
+  };
   return (
     <div className="h-[calc(100vh-5rem)] w-full bg-gradient-to-br from-purple-600 to-fuchsia-400 flex items-center justify-center">
       {normalSize && (
@@ -110,7 +147,7 @@ export default function RegisterPage() {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </InputGroup>
-              <Select.Root
+              {/* <Select.Root
                 collection={roleSelect}
                 value={role}
                 onValueChange={(e) => setRole(e.value)}
@@ -134,7 +171,7 @@ export default function RegisterPage() {
                     ))}
                   </Select.Content>
                 </Select.Positioner>
-              </Select.Root>
+              </Select.Root> */}
               <Button
                 size="md"
                 colorPalette="purple"
@@ -194,7 +231,7 @@ export default function RegisterPage() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </InputGroup>
-            <Select.Root
+            {/* <Select.Root
               collection={roleSelect}
               multiple={false}
               value={role}
@@ -220,7 +257,7 @@ export default function RegisterPage() {
                   ))}
                 </Select.Content>
               </Select.Positioner>
-            </Select.Root>
+            </Select.Root> */}
             <Button
               size="md"
               colorPalette="purple"

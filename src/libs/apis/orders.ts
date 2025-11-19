@@ -4,15 +4,6 @@ import axios from "axios";
 
 const ROOT_URL = `${process.env.BACKEND || ""}/orders`
 
-interface OrderCreateData {
-    artToy: string;
-    orderAmount: number;
-}
-
-interface  OrderPutData {
-    orderAmount: number;
-}
-
 async function get() {
     return await axios.get(ROOT_URL);
 }

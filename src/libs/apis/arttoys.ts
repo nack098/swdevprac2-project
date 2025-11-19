@@ -4,14 +4,6 @@ import axios from "axios";
 
 const ROOT_ROUTE: string = `${(process.env.BACKEND_URL || "")}/arttoys`;
 
-interface ArtToysData {
-    sku: string,
-    name: string,
-    description: string,
-    availableQuota: number,
-    posterPicture: string,
-}
-
 async function get() {
     return await axios.get(ROOT_ROUTE)
 }

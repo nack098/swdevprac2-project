@@ -2,19 +2,7 @@
 
 import axios from "axios"
 
-const ROOT_URL: string = `${process.env.BACKEND || ""}/auth`
-
-interface RegisterData {
-    name: string;
-    email: string;
-    tel: string;
-    password: string;
-}
-
-interface LoginData {
-    email:string;
-    password: string;
-}
+const ROOT_URL: string = `${process.env.BACKEND_URL || ""}/auth`
 
 async function register(data: RegisterData) {
     return await axios.post(ROOT_URL + "/register", {
