@@ -1,13 +1,13 @@
 "use client";
 
-import { Box, Heading, IconButton, Image, Link, Menu, Portal, Stack } from "@chakra-ui/react";
+import { Box, Button, Heading, IconButton, Image, Link, Menu, Portal, Stack } from "@chakra-ui/react";
 import NextLink from "next/link"
 import { FaBars } from "react-icons/fa";
 import { ColorModeButton } from "./ui/color-mode";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Navbar() {
-  const { data, status } = useSession();
+  const { status } = useSession();
   return (
     <Stack
       direction="row"
@@ -41,9 +41,9 @@ export default function Navbar() {
               <Link as={NextLink} href="/myaccount" textDecorationColor="black" padding="0.5rem" display={{ base: "none", md: "block" }}>
                 My Account
               </Link>
-              <Link as={NextLink} href="/auth/logout">
+              <Button onClick={() => signOut()}>
                 Logout
-              </Link>
+              </Button>
             </>
             :
             <>

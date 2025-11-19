@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { LuLock, LuMail } from "react-icons/lu";
-import { signIn } from "@/libs/auth";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
@@ -34,7 +34,7 @@ export default function LoginPage() {
       return;
     }
     if (result.ok && !result.error) {
-      router.replace("/");
+      router.push("/");
       return;
     } else {
       console.error("Login failed:", result.error);
