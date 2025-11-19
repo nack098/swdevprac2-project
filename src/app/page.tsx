@@ -83,13 +83,13 @@ export default function Home() {
           href="/products"
           textDecorationColor="bg"
           transitionTimingFunction="ease-out"
-          transition="colors" transitionDelay="300ms"
+          transition="colors" transitionDuration="300ms"
           _hover={{ textDecorationColor: "inherit" }}
         >
           All Products<FaAngleRight />
         </Link>
       </Stack>
-      <SimpleGrid minChildWidth="20rem" gap="5rem" paddingX="5rem" marginY="2rem">
+      <SimpleGrid minChildWidth="20rem" gap="3rem" paddingX="5rem" marginY="2rem">
         {/* Show 5 newest products (also change this shit to for loop or I will kill you */}
         <ProductCard />
         <ProductCard />
