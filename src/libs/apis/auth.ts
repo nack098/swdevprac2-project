@@ -32,14 +32,22 @@ export async function login(data: LoginData) {
   return { data: res.data, status: res.status, statusText: res.statusText };
 }
 
-export async function logout() {
-  const res = await axios.get(ROOT_URL + "/logout");
+export async function logout(token: string) {
+  const res = await axios.get(ROOT_URL + "/logout", {
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    },
+  });
 
   return { status: res.status, statusText: res.statusText };
 }
 
-export async function me() {
-  const res = await axios.get(ROOT_URL + "/me");
+export async function me(token: string) {
+  const res = await axios.get(ROOT_URL + "/me", {
+    headers: {
+      "Authorization": `Bearer ${token}`,
+    },
+  });
 
   return { data: res.data, status: res.status, statusText: res.statusText };
 }

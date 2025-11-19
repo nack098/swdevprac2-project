@@ -10,9 +10,10 @@ export async function get() {
   return { data: res.data, status: res.status, statusText: res.statusText };
 }
 
-export async function create(data: ArtToysData) {
+export async function create(data: ArtToysData, token: string) {
   const res = await axios.post(ROOT_ROUTE, data, {
     headers: {
+      "Authorization": `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   });
@@ -28,11 +29,12 @@ export async function getById(id: string) {
   return { data: res.data, status: res.status, statusText: res.statusText };
 }
 
-export async function put(id: string, data: ArtToysData) {
+export async function put(id: string, data: ArtToysData, token: string) {
   /* This is unsafe because there is no id validation hence risking of injection */
   /* TODO: Fix */
   const res = await axios.put(ROOT_ROUTE + "/" + id, data, {
     headers: {
+      "Authorization": `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   });
@@ -40,10 +42,14 @@ export async function put(id: string, data: ArtToysData) {
   return { data: res.data, status: res.status, statusText: res.statusText };
 }
 
-export async function del(id: string) {
+export async function del(id: string, token: string) {
   /* This is unsafe because there is no id validation hence risking of injection */
   /* TODO: Fix */
-  const res = await axios.delete(ROOT_ROUTE + "/" + id);
+  const res = await axios.delete(ROOT_ROUTE + "/" + id, {
+    headers: {
+            "Authorization": `Bearer ${token}`,
+        },
+  });
 
   return { status: res.status, statusText: res.statusText };
 }
