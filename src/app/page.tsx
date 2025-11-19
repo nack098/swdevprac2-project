@@ -12,20 +12,6 @@ const items = [
   "/carousel3.webp",
 ]
 
-function ProductCard() {
-  /*TODO: Finish this thing */
-  return (
-    <Link as={NextLink} href="/" boxShadow="xl" padding="1rem" rounded="sm" display="block">
-      <Image src="/carousel2.webp" objectFit="cover" height="25rem" rounded="sm" />
-      <Box padding="0.5rem" marginTop="0.5rem">
-        <Heading fontWeight="medium">Name</Heading>
-        <Text fontSize="sm">DD/MM/YYYY</Text>
-        <Text display="flex" marginTop="2rem" fontSize="lg" textAlign="right" justifyContent="end">###.##฿</Text>
-      </Box>
-    </Link>
-  )
-}
-
 export default function Home() {
   const playButtonRef = useRef<HTMLButtonElement>(null);
   log("Home", `${process.env.BACKEND || ""}/auth`)
@@ -93,11 +79,7 @@ export default function Home() {
       </Stack>
       <SimpleGrid minChildWidth="20rem" gap="3rem" paddingX="5rem" marginY="2rem">
         {/* Show 5 newest products (also change this shit to for loop or I will kill you */}
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {/* <ProductCard /> */}
       </SimpleGrid>
     </>
   );
