@@ -1,5 +1,5 @@
-import ArtToys from "./apis/arttoys"
-import Auth from "./apis/auth"
-import Orders from "./apis/orders"
+// import * as ArtToys from "./apis/arttoys"
+// import * as Auth from "./apis/auth"
+// import * as Orders from "./apis/orders"
 
-export default { ArtToys, Auth, Orders }
+// export default { ArtToys, Auth, Orders }
