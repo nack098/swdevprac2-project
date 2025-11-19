@@ -5,6 +5,9 @@ import NextLink from "next/link"
 export default function AdminPage() {
   return (
     <Box w="full" marginTop="3rem" paddingX="15rem" h="full">
+      <Heading fontSize="4xl" fontWeight="bold" lineHeight="4rem">
+        Admin Board
+      </Heading>
       <Box h="25rem">
         <HStack justifyContent="space-between">
           <Heading as="h1">Latest Product</Heading>

@@ -14,7 +14,6 @@ const items = [
 
 export default function Home() {
   const playButtonRef = useRef<HTMLButtonElement>(null);
-  log("Home", `${process.env.BACKEND || ""}/auth`)
   return (
     <>
       <Carousel.Root
