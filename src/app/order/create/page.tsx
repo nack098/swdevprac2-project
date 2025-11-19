@@ -1,5 +1,6 @@
 "use client";
 
+import { post } from "@/libs/apis/orders";
 import {
   Button,
   Heading,
@@ -8,16 +9,33 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function CreateOrderPage() {
   const [toyName, setToyName] = useState("Toy1");
   const toyID = ""; // replace with actual id from the product
   const [amount, setAmount] = useState("1"); // change to number when submit
+  const router = useRouter();
 
   const handleOrder = async () => {
     // Implement order submission logic here
-    console.log(`Ordering ${amount} of ${toyName}`);
+    try {
+      const orderData: OrderCreateData = {
+        artToy: toyID,
+        orderAmount: Number(amount),
+      };
+      const res = await post(orderData);
+
+      if (res.status !== 200 && res.status !== 201) {
+        console.error("Order creation error:", res.statusText);
+        return null;
+      }
+      router.replace("/myorders");
+    } catch (error) {
+      console.error("Error:", error);
+      return null;
+    }
   };
   return (
     <VStack>
