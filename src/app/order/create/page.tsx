@@ -27,6 +27,9 @@ export default function CreateOrderPage() {
       };
       const res = await post(orderData);
 
+      if (res.status == 400) {
+        alert("Order amount must be between 1-5 or quota exceeded");
+      }
       if (res.status !== 200 && res.status !== 201) {
         console.error("Order creation error:", res.statusText);
         return null;

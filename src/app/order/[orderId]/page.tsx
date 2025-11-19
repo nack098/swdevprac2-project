@@ -33,6 +33,9 @@ export default async function EditOrderPage({
       };
       const res = await put(orderId, orderData);
 
+      if (res.status == 400) {
+        alert("Order amount must be between 1-5 or quota exceeded");
+      }
       if (res.status !== 200) {
         console.error("Order update error:", res.statusText);
         return null;
