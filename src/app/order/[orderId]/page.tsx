@@ -23,7 +23,7 @@ export default async function EditOrderPage({
   const { orderId } = await params;
   const toyData = await getById(orderId);
   const toyName = toyData.data.name;
-  const [amount, setAmount] = useState("1"); // change to number when submit
+  const [amount, setAmount] = useState<string>(toyData.data.orderAmount); // change to number when submit
   const router = useRouter();
   const { data: session } = useSession();
   const token = session?.user.token as string;
