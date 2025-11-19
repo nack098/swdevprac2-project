@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import NextLink from "next/link"
 import { FaAngleRight } from "react-icons/fa";
+import log from "@/libs/utils/log";
 
 const items = [
   "/carousel1.webp",
@@ -27,6 +28,7 @@ function ProductCard() {
 
 export default function Home() {
   const playButtonRef = useRef<HTMLButtonElement>(null);
+  log("Home", `${process.env.BACKEND || ""}/auth`)
   return (
     <>
       <Carousel.Root

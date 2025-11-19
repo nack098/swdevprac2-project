@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.className} ${roboto_mono.className} antialiased p-0 m-0`}
+        className={`${roboto.className} ${roboto_mono.className} antialiased p-0 m-0 w-full h-full`}
       >
         <Providers>
           <Box minH="100vh" bg={{ _light: "white", _dark: "black" }}>

@@ -7,8 +7,6 @@ import {
   Text,
   Link,
   Button,
-  Select,
-  createListCollection,
   useBreakpointValue,
   VStack,
 } from "@chakra-ui/react";
@@ -23,59 +21,37 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [tel, setTel] = useState("");
   const [password, setPassword] = useState("");
-  // const [role, setRole] = useState<string[]>(["member"]);
   const router = useRouter();
-
-  // const roleSelect = createListCollection({
-  //   items: [
-  //     { label: "Member", value: "member" },
-  //     { label: "Admin", value: "admin" },
-  //   ],
-  // });
 
   const normalSize = useBreakpointValue({ base: false, sm: false, md: true });
 
   const handleRegister = async () => {
     try {
       const registerData: RegisterData = {
-        name: name as string,
-        email: email as string,
-        tel: tel as string,
-        password: password as string,
+        name, email, tel, password
       };
       const res = await register(registerData);
 
-      if (res.status !== 201) {
+      if (res.status !== 200 && res.status !== 201) {
         console.error("Register error:", res.statusText);
         return null;
       }
 
-      const data = res.data;
-      const result = await signIn("credentials", {
-        email: data.email,
-        password: password,
-        redirect: false,
-      });
-      if (!result) {
-        console.error("Login failed: No result returned");
-        return;
-      }
-      if (result.ok && !result.error) {
-        router.push("/");
-        return;
-      } else {
-        console.error("Login failed:", result.error);
-      }
+      router.replace("/auth/login")
     } catch (error) {
       console.error("Authorize Error:", error);
       return null;
     }
   };
+
   return (
-    <div className="h-[calc(100vh-5rem)] w-full bg-gradient-to-br from-purple-600 to-fuchsia-400 flex items-center justify-center">
+    <Box position="fixed" width="full" height="full" bgGradient="to-br" gradientFrom="purple.600" gradientTo="#FF00FF">
       {normalSize && (
         <Box
-          position="absolute"
+          position="fixed"
+          top="50%"
+          left="50%"
+          transform="translate(-50%,-50%)"
           w="64rem"
           h="32rem"
           boxShadow="2xl"
@@ -108,86 +84,63 @@ export default function RegisterPage() {
               Please register to become our member.
             </Heading>
           </Box>
-          <Box w="40%" h="32rem" p="2rem" bg="white">
-            <VStack>
-              <Heading as="h2" fontWeight="bold" fontSize="xl">
-                Register
-              </Heading>
-              <InputGroup startElement={<LuUser />} mt="2rem">
-                <Input
-                  placeholder="Name"
-                  w="full"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </InputGroup>
-              <InputGroup startElement={<LuMail />}>
-                <Input
-                  placeholder="Email"
-                  w="full"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </InputGroup>
-              <InputGroup startElement={<LuPhone />}>
-                <Input
-                  placeholder="Tel"
-                  w="full"
-                  value={tel}
-                  onChange={(e) => setTel(e.target.value)}
-                />
-              </InputGroup>
-              <InputGroup startElement={<LuLock />}>
-                <Input
-                  placeholder="Password"
-                  w="full"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </InputGroup>
-              {/* <Select.Root
-                collection={roleSelect}
-                value={role}
-                onValueChange={(e) => setRole(e.value)}
-              >
-                <Select.Control>
-                  <Select.Trigger>
-                    <Select.ValueText placeholder="Select role" />
-                  </Select.Trigger>
-                  <Select.IndicatorGroup>
-                    <Select.Indicator />
-                  </Select.IndicatorGroup>
-                </Select.Control>
-
-                <Select.Positioner>
-                  <Select.Content>
-                    {roleSelect.items.map((item) => (
-                      <Select.Item key={item.value} item={item}>
-                        {item.label}
-                        <Select.ItemIndicator />
-                      </Select.Item>
-                    ))}
-                  </Select.Content>
-                </Select.Positioner>
-              </Select.Root> */}
-              <Button
-                size="md"
-                colorPalette="purple"
-                mt="2rem"
-                onClick={handleRegister}
-              >
-                Confirm
-              </Button>
-              <Text fontSize="2xs" mt="2rem" color="black">
-                Already have an account? Click{" "}
-                <Link variant="underline" href="/auth/login" color="purple">
-                  here
-                </Link>{" "}
-                to login.
-              </Text>
-            </VStack>
+          <Box w="40%" h="32rem" p="2rem" bg={{ _light: "white", _dark: "gray.700" }}>
+            <form>
+              <VStack>
+                <Heading as="h2" fontWeight="bold" fontSize="xl">
+                  Register
+                </Heading>
+                <InputGroup startElement={<LuUser />} mt="2rem">
+                  <Input
+                    placeholder="Name"
+                    w="full"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </InputGroup>
+                <InputGroup startElement={<LuMail />}>
+                  <Input
+                    placeholder="Email"
+                    w="full"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </InputGroup>
+                <InputGroup startElement={<LuPhone />}>
+                  <Input
+                    placeholder="Tel"
+                    w="full"
+                    value={tel}
+                    onChange={(e) => setTel(e.target.value)}
+                  />
+                </InputGroup>
+                <InputGroup startElement={<LuLock />}>
+                  <Input
+                    placeholder="Password"
+                    w="full"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </InputGroup>
+                <Button
+                  size="md"
+                  colorPalette="purple"
+                  mt="2rem"
+                  onClick={handleRegister}
+                >
+                  Confirm
+                </Button>
+                <Text fontSize="2xs" mt="2rem" color={{ _light: "black", _dark: "white" }}>
+                  Already have an account? Click{" "}
+                  <Link variant="underline" href="/auth/login" color={{ _light: "purple", _dark: "purple.300" }}>
+                    here
+                  </Link>{" "}
+                  to login.
+                </Text>
+              </VStack>
+            </form>
           </Box>
         </Box>
       )}
@@ -231,38 +184,11 @@ export default function RegisterPage() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </InputGroup>
-            {/* <Select.Root
-              collection={roleSelect}
-              multiple={false}
-              value={role}
-              onValueChange={(e) => setRole(e.value)}
-            >
-              <Select.Control>
-                <Select.Trigger>
-                  <Select.ValueText placeholder="Select role" />
-                </Select.Trigger>
-                <Select.IndicatorGroup>
-                  <Select.Indicator />
-                  <Select.ClearTrigger />
-                </Select.IndicatorGroup>
-              </Select.Control>
-
-              <Select.Positioner>
-                <Select.Content>
-                  {roleSelect.items.map((item) => (
-                    <Select.Item key={item.value} item={item}>
-                      {item.label}
-                      <Select.ItemIndicator />
-                    </Select.Item>
-                  ))}
-                </Select.Content>
-              </Select.Positioner>
-            </Select.Root> */}
             <Button
               size="md"
               colorPalette="purple"
               mt="2rem"
-              onClick={handleRegister}
+              type="submit"
             >
               Confirm
             </Button>
@@ -276,6 +202,6 @@ export default function RegisterPage() {
           </VStack>
         </Box>
       )}
-    </div>
+    </Box>
   );
 }

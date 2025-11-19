@@ -10,7 +10,7 @@ Role management
 [ ] User
 
 Product
-[ ] Viewing
+[x] Viewing
 [ ] Order
 [ ] Validation
 [ ] Delete Booking
