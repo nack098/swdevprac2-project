@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
-import authen from "./apis/authen";
+import { login } from "./apis/auth";
 
 const credentials = Credentials({
   name: "Credentials",
@@ -14,7 +14,7 @@ const credentials = Credentials({
         email: email as string,
         password: password as string,
       };
-      const res = await authen.login(loginData)
+      const res = await login(loginData)
 
       if (res.status !== 200) {
         console.error("Login error:", res.statusText)

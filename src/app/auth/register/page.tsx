@@ -15,7 +15,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { LuLock, LuMail, LuPhone, LuUser } from "react-icons/lu";
-import authen from "@/libs/apis/authen";
+import { register } from "@/libs/apis/auth";
 import { signIn } from "@/libs/auth";
 
 export default function RegisterPage() {
@@ -43,7 +43,7 @@ export default function RegisterPage() {
         tel: tel as string,
         password: password as string,
       };
-      const res = await authen.register(registerData);
+      const res = await register(registerData);
 
       if (res.status !== 201) {
         console.error("Register error:", res.statusText);
