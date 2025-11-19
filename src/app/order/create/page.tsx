@@ -9,6 +9,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -17,6 +18,8 @@ export default function CreateOrderPage() {
   const toyID = ""; // replace with actual id from the product
   const [amount, setAmount] = useState("1"); // change to number when submit
   const router = useRouter();
+  const { data: session } = useSession();
+  const token = session?.user.token as string;
 
   const handleOrder = async () => {
     // Implement order submission logic here
@@ -25,7 +28,7 @@ export default function CreateOrderPage() {
         artToy: toyID,
         orderAmount: Number(amount),
       };
-      const res = await post(orderData);
+      const res = await post(orderData, token);
 
       if (res.status == 400) {
         alert("Order amount must be between 1-5 or quota exceeded");

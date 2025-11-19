@@ -11,6 +11,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -24,6 +25,8 @@ export default async function EditOrderPage({
   const toyName = toyData.data.name;
   const [amount, setAmount] = useState("1"); // change to number when submit
   const router = useRouter();
+  const { data: session } = useSession();
+  const token = session?.user.token as string;
 
   const handleUpdate = async () => {
     // Implement order submission logic here
@@ -31,7 +34,7 @@ export default async function EditOrderPage({
       const orderData: OrderPutData = {
         orderAmount: Number(amount),
       };
-      const res = await put(orderId, orderData);
+      const res = await put(orderId, orderData, token);
 
       if (res.status == 400) {
         alert("Order amount must be between 1-5 or quota exceeded");
@@ -51,7 +54,7 @@ export default async function EditOrderPage({
   const handleDelete = async () => {
     // Implement order deletion logic here
     try {
-      const res = await del(orderId);
+      const res = await del(orderId, token);
 
       if (res.status !== 200) {
         console.error("Order deletion error:", res.statusText);

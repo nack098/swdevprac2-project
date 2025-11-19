@@ -34,7 +34,7 @@ export default function LoginPage() {
       return;
     }
     if (result.ok && !result.error) {
-      router.push("/");
+      router.replace("/");
       return;
     } else {
       console.error("Login failed:", result.error);
