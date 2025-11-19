@@ -1,25 +1,15 @@
+"use client"
 import {
   Box,
-  Carousel,
-  For,
   Heading,
-  IconButton,
-  Image,
-  Link,
   SimpleGrid,
-  Span,
-  Stack,
-  Text,
 } from "@chakra-ui/react";
-import NextLink from "next/link";
-import { FaAngleRight } from "react-icons/fa";
-import { get } from "@/libs/apis/arttoys";
 import ProductCard from "@/components/ProductCard";
+import HomeCarousel from "@/components/Carousel";
+import HomeHead from "@/components/HomeHead";
+import { useAppSelector } from "@/redux/store";
 
-async function getSortedProducts() {
-  const res = await get();
-  const products = res.data;
-  if (!res.data) return []
+function getSortedProducts(products: any) {
   const sortedProducts = products.sort(
     (a: any, b: any) =>
       new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -27,10 +17,12 @@ async function getSortedProducts() {
   return sortedProducts;
 }
 
-export default async function Home() {
-  const sortedFive = await getSortedProducts().then((data) => data.slice(0, 5));
+export default function Home() {
+  const data = useAppSelector((state) => state.productSlice.products);
+  const sortedFive = getSortedProducts(data).slice(0, 5);
   return (
     <>
+      <HomeCarousel />
       <Heading
         as="h1"
         justifyContent="center"
@@ -58,28 +50,7 @@ export default async function Home() {
       <Box paddingX="7rem">
         <hr />
       </Box>
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        paddingX="3rem"
-        marginTop="2rem"
-      >
-        <Heading as="h1" fontWeight="bold">
-          Our New Products
-        </Heading>
-        <Link
-          as={NextLink}
-          href="/products"
-          textDecorationColor="bg"
-          transitionTimingFunction="ease-out"
-          transition="colors"
-          transitionDuration="300ms"
-          _hover={{ textDecorationColor: "inherit" }}
-        >
-          All Products
-          <FaAngleRight />
-        </Link>
-      </Stack>
+      <HomeHead />
       <SimpleGrid
         minChildWidth="20rem"
         gap="3rem"
