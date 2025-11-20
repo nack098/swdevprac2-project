@@ -36,6 +36,7 @@ export async function getById(id: string, token: string) {
       Authorization: `Bearer ${token}`,
     },
   });
+  console.log(res.data);
   return { data: res.data, status: res.status, statusText: res.statusText };
 }
 
