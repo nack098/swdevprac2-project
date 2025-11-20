@@ -41,7 +41,7 @@ export default async function OrdersPage() {
           orders.data.map((order: any) => (
             <OrderCard
               key={order._id}
-              toyName={order.artToy}
+              toyName={order.artToy.name}
               amount={order.orderAmount}
               member={order.user.name}
               link={`/admin/orders/${order._id}`}
