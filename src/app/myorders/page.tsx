@@ -28,23 +28,28 @@ export default function MyOrdersPage() {
     return null;
   }
   return (
-    <Box paddingX={{ base: "2rem", md: "10rem" }} paddingY="5rem">
+    <Box paddingX={{ base: "2rem", md: "4rem" }} paddingY="5rem">
       <Heading as="h1" fontWeight="bold" fontSize="3xl" marginBottom="2rem">
         Orders
       </Heading>
       <SimpleGrid
         minChildWidth={{ md: "40rem" }}
-        gap={{ base: "2rem", md: "5rem" }}
+        gap={{ base: "2rem", md: "4rem" }}
+        columns={2}
       >
-        {orders && orders.data ? orders.data.map((order: any) => (
-          <OrderCard
-            key={order._id}
-            toyName={order.artToy.name}
-            amount={order.orderAmount}
-            member={order.user}
-            link={`/order/${order._id}`}
-          />
-        )) : <></>}
+        {orders && orders.data ? (
+          orders.data.map((order: any) => (
+            <OrderCard
+              key={order._id}
+              toyName={order.artToy.name}
+              amount={order.orderAmount}
+              member={order.user}
+              link={`/order/${order._id}`}
+            />
+          ))
+        ) : (
+          <></>
+        )}
       </SimpleGrid>
     </Box>
   );
