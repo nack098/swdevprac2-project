@@ -1,6 +1,6 @@
 "use client";
 
-import { SimpleGrid, Box, Heading } from "@chakra-ui/react";
+import { SimpleGrid, Box, Heading, Text } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import OrderCard from "@/components/OrderCard";
 import { useEffect, useState } from "react";
@@ -50,6 +50,7 @@ export default function MyOrdersPage() {
         ) : (
           <></>
         )}
+        {orders && orders.data.length == 0 ? <Text>You don't have any order! Buy some!!!</Text> : <></>}
       </SimpleGrid>
     </Box>
   );
