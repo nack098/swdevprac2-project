@@ -38,10 +38,10 @@ export default function ProductPage({ params }: { params: Promise<Props> }) {
   }, []);
   return (
     <Box
-      paddingX="2rem"
-      marginX={{ base: "2rem", md: "10rem" }}
+      paddingX={{ base: "2rem", md: "10rem" }}
       paddingY="3rem"
       marginY="2rem"
+      width="full"
       rounded="md"
       boxShadow={{ _light: "0 0 0.1rem 0 black", _dark: "0 0 0.1rem 0 white" }}
     >
@@ -49,6 +49,8 @@ export default function ProductPage({ params }: { params: Promise<Props> }) {
         <Stack
           direction={{ base: "column", xl: "row" }}
           justifyContent="center"
+          width="full"
+          height="full"
           gap="2rem"
           align="start"
           textAlign="left"
@@ -63,21 +65,21 @@ export default function ProductPage({ params }: { params: Promise<Props> }) {
           </Box>
           <Box maxWidth="35rem" rounded="md">
             <Text>{product.sku}</Text>
-            <Heading as="h1" fontSize="5xl" fontWeight="bold" lineHeight="3rem">
+            <Heading as="h1" fontSize={{ base: "2xl", sm: "5xl" }} fontWeight="bold" lineHeight="3rem" textWrap="pretty">
               {product.name}
             </Heading>
-            <Text as="h2" fontSize="2xl" marginBottom="0.5rem">
+            <Text as="h2" fontSize={{ base: "md", sm: "2xl" }} marginBottom="0.5rem">
               {product.arrivalDate}
             </Text>
             <hr />
-            <Text height="39rem" width="30rem" marginTop="1rem">
+            <Text height="26.5rem" fontSize={{ base: "sm", sm: "md" }} maxWidth="30rem" marginTop="1rem">
               {product.description}
             </Text>
             <Box display="flex" flexDirection="row" gap="2rem">
               <NumberInput.Root
                 defaultValue="1"
                 height="2rem"
-                width="6rem"
+                maxWidth="6rem"
                 min={1}
                 max={product.availableQuota}
                 onValueChange={({ valueAsNumber }) => {
@@ -100,7 +102,7 @@ export default function ProductPage({ params }: { params: Promise<Props> }) {
                     setMessage(result.data.message);
                   });
                 }}
-                width="15rem"
+                maxWidth="15rem"
               >
                 {product.availableQuota > 0 ? "Order" : "Out of stock"}
               </Button>
