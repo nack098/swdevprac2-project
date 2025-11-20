@@ -43,7 +43,7 @@ export default async function OrdersPage() {
               key={order._id}
               toyName={order.artToy}
               amount={order.orderAmount}
-              member={order.user}
+              member={order.user.name}
               link={`/admin/orders/${order._id}`}
             />
           ))

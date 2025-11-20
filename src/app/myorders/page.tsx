@@ -43,7 +43,7 @@ export default function MyOrdersPage() {
               key={order._id}
               toyName={order.artToy.name}
               amount={order.orderAmount}
-              member={order.user}
+              member={order.user.name}
               link={`/order/${order._id}`}
             />
           ))
