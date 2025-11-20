@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [msg, setMsg] = useState("");
   const router = useRouter();
 
   const normalSize = useBreakpointValue({ base: false, sm: false, lg: true });
@@ -30,6 +31,7 @@ export default function LoginPage() {
       redirect: false,
     });
     if (!result) {
+      setMsg("Unable to login, may be email or password is incorrect!");
       console.error("Login failed: No result returned");
       return;
     }
@@ -37,6 +39,7 @@ export default function LoginPage() {
       router.push("/");
       return;
     } else {
+      setMsg("Unable to login, may be email or password is incorrect!");
       console.error("Login failed:", result.error);
     }
   };
@@ -94,7 +97,7 @@ export default function LoginPage() {
             p="2rem"
             bg={{ _light: "white", _dark: "gray.700" }}
           >
-            <form>
+            <form onSubmit={(e) => { e.preventDefault(); handleLogin() }}>
               <VStack>
                 <Heading
                   as="h2"
@@ -111,6 +114,7 @@ export default function LoginPage() {
                     w="full"
                     type="email"
                     value={email}
+                    required
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </InputGroup>
@@ -119,6 +123,7 @@ export default function LoginPage() {
                     placeholder="Password"
                     w="full"
                     type="password"
+                    required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -127,7 +132,7 @@ export default function LoginPage() {
                   size="md"
                   colorPalette="purple"
                   mt="2rem"
-                  onClick={handleLogin}
+                  type="submit"
                 >
                   Confirm
                 </Button>
@@ -146,6 +151,10 @@ export default function LoginPage() {
                   </Link>{" "}
                   to register.
                 </Text>
+
+                <Text color="red" textAlign="center">
+                  {msg}
+                </Text>
               </VStack>
             </form>
           </Box>
@@ -162,7 +171,7 @@ export default function LoginPage() {
           p="2rem"
           bg={{ _light: "white", _dark: "gray.700" }}
         >
-          <form>
+          <form onSubmit={(e) => { e.preventDefault(); handleLogin() }}>
             <VStack>
               <Heading as="h2" fontWeight="bold" fontSize="xl" mt="2rem" color={{ _dark: "white", _light: "black" }}>
                 Login
@@ -172,6 +181,7 @@ export default function LoginPage() {
                   placeholder="Email"
                   w="full"
                   type="email"
+                  required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -180,6 +190,7 @@ export default function LoginPage() {
                 <Input
                   placeholder="Password"
                   w="full"
+                  required
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -189,7 +200,7 @@ export default function LoginPage() {
                 size="md"
                 colorPalette="purple"
                 mt="2rem"
-                onClick={handleLogin}
+                type="submit"
               >
                 Confirm
               </Button>
@@ -207,6 +218,9 @@ export default function LoginPage() {
                   here
                 </Link>{" "}
                 to register.
+              </Text>
+              <Text color="red" textAlign="center">
+                {msg}
               </Text>
             </VStack>
           </form>

@@ -175,7 +175,7 @@ export default function RegisterPage() {
       )}
       {!normalSize && (
         <Box position="fixed" top="50%" left="50%" transform="translate(-50%,-50%)" w="24rem" h="32rem" p="2rem" bg={{ _light: "white", _dark: "gray.700" }}>
-          <form onSubmit={handleRegister}>
+          <form onSubmit={(e) => { e.preventDefault(); handleRegister() }}>
             <VStack>
               <Heading as="h2" fontWeight="bold" fontSize="xl" mt="2rem">
                 Register
@@ -184,6 +184,7 @@ export default function RegisterPage() {
                 <Input
                   placeholder="Name"
                   w="full"
+                  required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -194,6 +195,7 @@ export default function RegisterPage() {
                   w="full"
                   type="email"
                   value={email}
+                  required
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </InputGroup>
@@ -201,6 +203,7 @@ export default function RegisterPage() {
                 <Input
                   placeholder="Tel"
                   w="full"
+                  required
                   value={tel}
                   onChange={(e) => setTel(e.target.value)}
                 />
@@ -210,6 +213,7 @@ export default function RegisterPage() {
                   placeholder="Password"
                   w="full"
                   type="password"
+                  required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
