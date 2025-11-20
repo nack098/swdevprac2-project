@@ -67,7 +67,7 @@ export default function AdminPage() {
         >
           {/* Show 5 newest products (also change this shit to for loop or I will kill you */}
           {sortedFive.map((product: any) => (
-            <ProductCard data={product} link={`/admin/products/${product._id}`} />
+            <ProductCard data={product} link={`/admin/products/${product._id}`} key={product._id} />
           ))}
         </SimpleGrid>
       </Box>
