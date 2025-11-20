@@ -15,10 +15,14 @@ export async function get(token: string) {
 
 export async function post(data: OrderCreateData, token: string) {
   console.log(data);
+  console.log(token);
   const res = await axios.post(ROOT_URL, data, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
+    },
+    validateStatus: (val) => {
+      return val < 500;
     },
   });
   return { data: res.data, status: res.status, statusText: res.statusText };

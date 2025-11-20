@@ -18,7 +18,8 @@ export default function ProductPage({
   const { data: session, status } = useSession();
   const token = session?.user.token as string;
   const [data, setData] = useState<any>(null);
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(1);
+  const [message, setMessage] = useState("");
   const product = data?.data;
   useEffect(() => {
     const res = getById(productId);
@@ -61,11 +62,12 @@ export default function ProductPage({
               {product.description}
             </Text>
             <Box display="flex" flexDirection="row">
-              <NumberInput.Root defaultValue="1" width="4rem" min={1} max={5} onValueChange={({ valueAsNumber }) => setAmount(valueAsNumber)}>
+              <NumberInput.Root defaultValue="1" height="2rem" width="6rem" min={1} max={product.availableQuota} onValueChange={({ valueAsNumber }) => { setAmount(valueAsNumber) }}>
                 <NumberInput.Control />
                 <NumberInput.Input />
               </NumberInput.Root>
-              <Button disabled={status !== "authenticated"} onClick={(e) => { e.preventDefault(); post({ artToy: product._id, orderAmount: amount }, token) }} width="15rem">Order</Button>
+              <Button disabled={status !== "authenticated" && product.availableQuota > 0} onClick={(e) => { e.preventDefault(); post({ artToy: product._id, orderAmount: amount }, token).then(result => { setMessage(result.data.message) }) }} width="15rem">{product.availableQuota > 0 ? "Order" : "Out of stock"}</Button>
+              <Text color="red" textAlign={"center"} height="full"> {message} </Text>
             </Box>
           </Box>
         </HStack> :

@@ -1,3 +1,4 @@
+"use client"
 import { Box, Heading, Button, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 
@@ -23,7 +24,7 @@ export default function OrderCard(props: Props) {
       height="12rem"
       position="relative"
     >
-      <Heading as="h3" size="xl" fontWeight="bold" color="black" mb="0.5rem">
+      <Heading as="h1" size="xl" fontWeight="bold" color="black" mb="0.5rem">
         {props.toyName}
       </Heading>
       <Text fontSize="md" color="black">

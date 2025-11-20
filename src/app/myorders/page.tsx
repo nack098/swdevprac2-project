@@ -15,7 +15,7 @@ export default function MyOrdersPage() {
   useEffect(() => {
     if (!token) return;
     const raw = get(token);
-    raw.then(data => { setOrders(data.data) });
+    raw.then(data => { setOrders(data.data); console.log(data.data) });
     return (() => { Promise.reject(raw) })
   }, [session])
 
@@ -33,7 +33,7 @@ export default function MyOrdersPage() {
         {orders && orders.data ? orders.data.map((order: any) => (
           <OrderCard
             key={order._id}
-            toyName={order.artToy}
+            toyName={order.artToy.name}
             amount={order.orderAmount}
             member={order.user}
           />
