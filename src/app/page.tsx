@@ -10,11 +10,12 @@ import HomeHead from "@/components/HomeHead";
 import { useAppSelector } from "@/redux/store";
 
 function getSortedProducts(products: any) {
-  const sortedProducts = products.sort(
+  const sortedProducts = [...products].sort(
     (a: any, b: any) =>
-      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      new Date(b.arrivalDate
+      ).getTime() - new Date(a.arrvialDate).getTime()
   );
-  return sortedProducts;
+  return sortedProducts
 }
 
 export default function Home() {
@@ -59,7 +60,7 @@ export default function Home() {
       >
         {/* Show 5 newest products (also change this shit to for loop or I will kill you */}
         {sortedFive.map((product: any) => (
-          <ProductCard data={product} />
+          <ProductCard data={product} link={`/products/${product._id}`} />
         ))}
       </SimpleGrid>
     </>

@@ -19,7 +19,7 @@ export default function OrderCard(props: Props) {
       shadow="lg"
       padding="1.5rem"
       margin="1rem"
-      width="44rem"
+      maxWidth="44rem"
       height="12rem"
       position="relative"
     >

@@ -7,7 +7,8 @@ import { ColorModeButton } from "./ui/color-mode";
 import { signOut, useSession } from "next-auth/react";
 
 export default function Navbar() {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
+  console.log(session)
   return (
     <Stack
       direction="row"
@@ -35,12 +36,15 @@ export default function Navbar() {
         {
           status === "authenticated" ?
             <>
-              <Link as={NextLink} href="/myorders" textDecorationColor="black" padding="0.5rem" display={{ base: "none", md: "block" }}>
-                My Orders
-              </Link>
-              <Link as={NextLink} href="/myaccount" textDecorationColor="black" padding="0.5rem" display={{ base: "none", md: "block" }}>
-                My Account
-              </Link>
+              {session?.user.role !== "admin" ?
+                <Link as={NextLink} href="/myorders" textDecorationColor="black" padding="0.5rem" display={{ base: "none", md: "block" }}>
+                  My Orders
+                </Link> :
+
+                <Link as={NextLink} href="/admin" textDecorationColor="black" padding="0.5rem" display={{ base: "none", md: "block" }}>
+                  Admin Panel
+                </Link>
+              }
               <Button onClick={() => signOut()}>
                 Logout
               </Button>
@@ -73,16 +77,20 @@ export default function Navbar() {
                 {
                   status === "authenticated" ?
                     <>
-                      <Menu.Item asChild value="myorders">
-                        <Link as={NextLink} href="/myorders">
-                          My Orders
-                        </Link>
-                      </Menu.Item>
-                      <Menu.Item asChild value="myaccount">
-                        <Link as={NextLink} href="/myaccount">
-                          My Account
-                        </Link>
-                      </Menu.Item>
+                      {session?.user.role !== "admin" ?
+                        <>
+                          <Menu.Item asChild value="myorders">
+                            <Link as={NextLink} href="/myorders">
+                              My Orders
+                            </Link>
+                          </Menu.Item>
+                        </> :
+                        <Menu.Item asChild value="admin">
+                          <Link as={NextLink} href="/admin">
+                            Admin Panel
+                          </Link>
+                        </Menu.Item>
+                      }
                     </>
                     :
                     <>

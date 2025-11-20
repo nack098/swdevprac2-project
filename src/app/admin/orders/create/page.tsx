@@ -26,7 +26,7 @@ export default function CreateOrderPage() {
     try {
       const orderData: OrderCreateData = {
         artToy: toyID,
-        orderAmount: Number(amount),
+        orderAmount: parseInt(amount),
       };
       const res = await post(orderData, token);
 

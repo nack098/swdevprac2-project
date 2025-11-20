@@ -16,9 +16,7 @@ export default function ProductPage() {
         gap={{ base: "2rem", md: "5rem" }}
       >
         {products.map((product: any) => (
-          <Link href={`/products/${product._id}`}>
-            <ProductCard data={product}></ProductCard>
-          </Link>
+          <ProductCard data={product} key={product._id} link={`/products/${product._id}`} />
         ))}
       </SimpleGrid>
     </Box>

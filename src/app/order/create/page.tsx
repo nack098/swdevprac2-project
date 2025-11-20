@@ -15,8 +15,8 @@ import { useState } from "react";
 
 export default function CreateOrderPage() {
   const [toyName, setToyName] = useState("Toy1");
-  const toyID = ""; // replace with actual id from the product
-  const [amount, setAmount] = useState("1"); // change to number when submit
+  const toyID = "";
+  const [amount, setAmount] = useState("1");
   const router = useRouter();
   const { data: session } = useSession();
   const token = session?.user.token as string;
@@ -26,7 +26,7 @@ export default function CreateOrderPage() {
     try {
       const orderData: OrderCreateData = {
         artToy: toyID,
-        orderAmount: Number(amount),
+        orderAmount: parseInt(amount),
       };
       const res = await post(orderData, token);
 

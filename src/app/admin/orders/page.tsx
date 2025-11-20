@@ -1,28 +1,45 @@
 "use client";
 
 import { get } from "@/libs/apis/orders";
-import { SimpleGrid } from "@chakra-ui/react";
+import { Box, SimpleGrid, Heading } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import OrderCard from "@/components/OrderCard";
 
 export default async function OrdersPage() {
   const { data: session } = useSession();
   const token = session?.user?.token;
 
+  const [orders, setOrders] = useState<any>(null);
+
+  useEffect(() => {
+    if (!token) return;
+    const raw = get(token);
+    raw.then(data => { setOrders(data.data) });
+    return (() => { Promise.reject(raw) })
+  }, [session])
+
   if (!token) {
     return null;
   }
-  const orders = await get(token);
+
   return (
-    <SimpleGrid minChildWidth="40rem" columns={2} gap="2rem">
-      {orders.data.map((order: any) => (
-        <OrderCard
-          key={order._id}
-          toyName={order.artToy}
-          amount={order.orderAmount}
-          member={order.user}
-        />
-      ))}
-    </SimpleGrid>
+    <Box paddingX={{ base: "2rem", md: "10rem" }} paddingY="5rem">
+      <Heading as="h1" fontWeight="bold" fontSize="3xl" marginBottom="2rem">
+        Orders
+      </Heading>
+      <SimpleGrid minChildWidth={{ md: "40rem" }}
+        gap={{ base: "2rem", md: "5rem" }}
+      >
+        {orders && orders.data ? orders.data.map((order: any) => (
+          <OrderCard
+            key={order._id}
+            toyName={order.artToy}
+            amount={order.orderAmount}
+            member={order.user}
+          />
+        )) : <></>}
+      </SimpleGrid>
+    </Box>
   );
 }
