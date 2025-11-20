@@ -52,7 +52,7 @@ export default function AdminPage() {
       <Heading fontSize="4xl" fontWeight="bold" lineHeight="4rem">
         Admin Board
       </Heading>
-      <Box h="25rem">
+      <Box>
         <HStack justifyContent="space-between">
           <Heading as="h1">Latest Product</Heading>
           <Link as={NextLink} href="/admin/products">
@@ -71,7 +71,7 @@ export default function AdminPage() {
           ))}
         </SimpleGrid>
       </Box>
-      <Box h="10rem">
+      <Box>
         <HStack justifyContent="space-between">
           <Heading as="h1">Latest Orders</Heading>
           <Link as={NextLink} href="/admin/orders">
