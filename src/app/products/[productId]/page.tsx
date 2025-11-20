@@ -69,6 +69,9 @@ export default function ProductPage({ params }: { params: Promise<Props> }) {
               {product.name}
             </Heading>
             <Text as="h2" fontSize={{ base: "md", sm: "2xl" }} marginBottom="0.5rem">
+              Quota: {product.availableQuota}
+            </Text>
+            <Text as="h2" fontSize={{ base: "md", sm: "2xl" }} marginBottom="0.5rem">
               {product.arrivalDate}
             </Text>
             <hr />
