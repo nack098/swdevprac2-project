@@ -15,9 +15,13 @@ export default function MyOrdersPage() {
   useEffect(() => {
     if (!token) return;
     const raw = get(token);
-    raw.then(data => { setOrders(data.data) });
-    return (() => { Promise.reject(raw) })
-  }, [session])
+    raw.then((data) => {
+      setOrders(data.data);
+    });
+    return () => {
+      Promise.reject(raw);
+    };
+  }, [session]);
 
   if (!token) {
     return null;
@@ -27,18 +31,24 @@ export default function MyOrdersPage() {
       <Heading as="h1" fontWeight="bold" fontSize="3xl" marginBottom="2rem">
         Orders
       </Heading>
-      <SimpleGrid minChildWidth={{ md: "40rem" }}
+      <SimpleGrid
+        minChildWidth={{ md: "40rem" }}
         gap={{ base: "2rem", md: "5rem" }}
       >
-        {orders && orders.data ? orders.data.map((order: any) => (
-          <OrderCard
-            key={order._id}
-            toyName={order.artToy}
-            amount={order.orderAmount}
-            member={order.user}
-          />
-        )) : <></>}
+        {orders && orders.data ? (
+          orders.data.map((order: any) => (
+            <OrderCard
+              key={order._id}
+              toyName={order.artToy}
+              amount={order.orderAmount}
+              member={order.user}
+              link={`/order/${order._id}`}
+            />
+          ))
+        ) : (
+          <></>
+        )}
       </SimpleGrid>
     </Box>
-  )
+  );
 }

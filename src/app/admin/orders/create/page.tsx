@@ -37,7 +37,7 @@ export default function CreateOrderPage() {
         console.error("Order creation error:", res.statusText);
         return null;
       }
-      router.replace("/myorders");
+      router.replace("/admin/orders");
     } catch (error) {
       console.error("Error:", error);
       return null;
