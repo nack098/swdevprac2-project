@@ -35,6 +35,7 @@ export default function ProductPage() {
   const [description, setDescription] = useState<string>("");
   const [arrivalDate, setArrivalDate] = useState<string>("");
   const [posterPicture, setPosterPicture] = useState<string>("");
+  const [availableQuota, setAvailableQuota] = useState<string>("1");
 
   const handleCreate = async () => {
     try {
@@ -139,6 +140,18 @@ export default function ProductPage() {
               required
               onChange={(e) => setDescription(e.target.value)}
             />
+          </Field.Root>
+          <Field.Root>
+            <Field.Label>
+              Available Quota <Field.RequiredIndicator />
+            </Field.Label>
+            <NumberInput.Root
+              value={availableQuota}
+              onValueChange={(e) => setAvailableQuota(e.value)}
+            >
+              <NumberInput.Control />
+              <NumberInput.Input />
+            </NumberInput.Root>
           </Field.Root>
           <Field.Root>
             <Field.Label>
