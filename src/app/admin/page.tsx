@@ -67,7 +67,7 @@ export default function AdminPage() {
         >
           {/* Show 5 newest products (also change this shit to for loop or I will kill you */}
           {sortedFive.map((product: any) => (
-            <ProductCard data={product} />
+            <ProductCard data={product} link={`/admin/products/${product._id}`} />
           ))}
         </SimpleGrid>
       </Box>
@@ -91,7 +91,8 @@ export default function AdminPage() {
               <OrderCard
                 toyName={order.artToy.name}
                 amount={order.orderAmount}
-                link={`/admin/products/${order.artToy._id}`}
+                link={`/admin/orders/${order._id}`}
+                key={order._id}
               />
             ))
           ) : (

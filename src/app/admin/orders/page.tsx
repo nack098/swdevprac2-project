@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import OrderCard from "@/components/OrderCard";
 
-export default async function OrdersPage() {
+export default function OrdersPage() {
   const { data: session } = useSession();
   const token = session?.user?.token;
 

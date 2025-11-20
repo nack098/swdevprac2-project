@@ -1,5 +1,5 @@
 "use client";
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import {
   Box,
   Image,
@@ -16,34 +16,53 @@ import {
 import { del, getById, put } from "@/libs/apis/arttoys";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { fetchProducts } from "@/redux/features/productSlice";
 
 interface Props {
   productId: string;
 }
 
-export default async function ProductPage({
+export default function ProductPage({
   params,
 }: {
   params: Promise<Props>;
 }) {
+  const dispatch = useDispatch<AppDispatch>();
   const { productId } = use(params);
-  const res = await getById(productId);
-  const product = res.data;
+  const [product, setProduct] = useState();
 
   const router = useRouter();
   const { data: session } = useSession();
   const token = session?.user.token as string;
 
-  const [sku, setSku] = useState<string>(product.sku);
-  const [name, setName] = useState<string>(product.name);
-  const [description, setDescription] = useState<string>(product.description);
-  const [arrivalDate, setArrivalDate] = useState<string>(product.arrivalDate);
+  const [sku, setSku] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [arrivalDate, setArrivalDate] = useState<string>("");
   const [availableQuota, setAvailableQuota] = useState<string>(
-    product.availableQuota
+    ""
   );
   const [posterPicture, setPosterPicture] = useState<string>(
-    product.posterPicture
+    ""
   );
+
+  useEffect(() => {
+    const promise = getById(productId);
+    promise.then((res) => {
+      const data = res.data;
+      console.log(data.data);
+      setProduct(data.data);
+      setSku(data.data.sku);
+      setName(data.data.name);
+      setDescription(data.data.description);
+      setArrivalDate(data.data.arrivalDate.split("T")[0]);
+      setAvailableQuota(data.data.availableQuota);
+      setPosterPicture(data.data.posterPicture);
+    });
+    return () => { Promise.reject(promise) }
+  }, [])
 
   const handleUpdate = async () => {
     // Implement order submission logic here
@@ -66,6 +85,7 @@ export default async function ProductPage({
         return null;
       }
 
+      dispatch(fetchProducts())
       router.replace("/admin/products");
     } catch (error) {
       console.error("Error:", error);
@@ -82,6 +102,7 @@ export default async function ProductPage({
         console.error("Product delete error:", res.statusText);
         return null;
       }
+      dispatch(fetchProducts())
       router.replace("/admin/products");
     } catch (error) {
       console.error("Error:", error);
@@ -100,7 +121,7 @@ export default async function ProductPage({
       <HStack justifyContent="center" gap="2rem" align="start" textAlign="left">
         <Box height="40rem" width="40rem" rounded="md" bg="gray.400">
           <Image
-            src={product.posterPicture}
+            src={posterPicture}
             height="full"
             width="full"
             objectFit="cover"
@@ -147,6 +168,7 @@ export default async function ProductPage({
             <input
               type="date"
               value={arrivalDate}
+              min={(new Date()).toISOString().split("T")[0]}
               onChange={(e) => setArrivalDate(e.target.value)}
             />
           </Field.Root>

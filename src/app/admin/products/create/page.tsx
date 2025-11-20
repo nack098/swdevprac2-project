@@ -160,6 +160,7 @@ export default function ProductPage() {
             <Input
               type="date"
               value={arrivalDate}
+              min={(new Date()).toISOString().split("T")[0]}
               required
               onChange={(e) => setArrivalDate(e.target.value)}
             />

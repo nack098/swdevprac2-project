@@ -36,10 +36,11 @@ export default function Navbar() {
         {
           status === "authenticated" ?
             <>
+              <Link as={NextLink} href="/myorders" textDecorationColor="black" padding="0.5rem" display={{ base: "none", md: "block" }}>
+                My Orders
+              </Link>
               {session?.user.role !== "admin" ?
-                <Link as={NextLink} href="/myorders" textDecorationColor="black" padding="0.5rem" display={{ base: "none", md: "block" }}>
-                  My Orders
-                </Link> :
+                <></> :
 
                 <Link as={NextLink} href="/admin" textDecorationColor="black" padding="0.5rem" display={{ base: "none", md: "block" }}>
                   Admin Panel
@@ -77,13 +78,13 @@ export default function Navbar() {
                 {
                   status === "authenticated" ?
                     <>
+                      <Menu.Item asChild value="myorders">
+                        <Link as={NextLink} href="/myorders">
+                          My Orders
+                        </Link>
+                      </Menu.Item>
                       {session?.user.role !== "admin" ?
                         <>
-                          <Menu.Item asChild value="myorders">
-                            <Link as={NextLink} href="/myorders">
-                              My Orders
-                            </Link>
-                          </Menu.Item>
                         </> :
                         <Menu.Item asChild value="admin">
                           <Link as={NextLink} href="/admin">
