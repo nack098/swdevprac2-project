@@ -1,12 +1,12 @@
 "use client";
 
-import { get } from "@/libs/apis/orders";
-import { Box, SimpleGrid, Heading } from "@chakra-ui/react";
+import { SimpleGrid, Box, Heading, Text } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
 import OrderCard from "@/components/OrderCard";
+import { useEffect, useState } from "react";
+import { get } from "@/libs/apis/orders";
 
-export default function OrdersPage() {
+export default function AdminOrdersPage() {
   const { data: session } = useSession();
   const token = session?.user?.token;
 
@@ -26,7 +26,6 @@ export default function OrdersPage() {
   if (!token) {
     return null;
   }
-
   return (
     <Box paddingX={{ base: "2rem", md: "4rem" }} paddingY="5rem">
       <Heading as="h1" fontWeight="bold" fontSize="3xl" marginBottom="2rem">

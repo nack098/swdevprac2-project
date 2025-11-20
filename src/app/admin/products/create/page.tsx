@@ -44,7 +44,7 @@ export default function ProductPage() {
         name,
         description,
         arrivalDate,
-        availableQuota: 0,
+        availableQuota: parseInt(availableQuota),
         posterPicture,
       };
       const res = await create(productData, token);
@@ -147,6 +147,7 @@ export default function ProductPage() {
             </Field.Label>
             <NumberInput.Root
               value={availableQuota}
+              required
               onValueChange={(e) => setAvailableQuota(e.value)}
             >
               <NumberInput.Control />

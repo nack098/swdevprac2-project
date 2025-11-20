@@ -29,9 +29,15 @@ export default function EditOrderPage({
   useEffect(() => {
     if (!token) return;
     const promise = getById(orderId, token);
-    promise.then(data => { setToyData(data.data); setAmount(data.data.orderAmount); console.log(data) });
-    return (() => { Promise.reject(promise) })
-  }, [token])
+    promise.then((data) => {
+      setToyData(data.data);
+      setAmount(data.data.orderAmount);
+      console.log(data);
+    });
+    return () => {
+      Promise.reject(promise);
+    };
+  }, [token]);
 
   const handleUpdate = async () => {
     // Implement order submission logic here
@@ -73,25 +79,39 @@ export default function EditOrderPage({
   };
   return (
     <Box display="flex" width="full" justifyContent="center" marginTop="2rem">
-      <VStack width="full" maxWidth="30rem" paddingY="3rem" paddingX="4rem" bg={{ _dark: "gray.900", _light: "gray.100" }}
-        boxShadow={{ _light: "0 0 0.1rem 0 black", _dark: "0 0 0.1rem 0 white" }} rounded="md"
+      <VStack
+        width="full"
+        maxWidth="30rem"
+        paddingY="3rem"
+        paddingX="4rem"
+        bg={{ _dark: "gray.900", _light: "gray.100" }}
+        boxShadow={{
+          _light: "0 0 0.1rem 0 black",
+          _dark: "0 0 0.1rem 0 white",
+        }}
+        rounded="md"
       >
-        {toyData ?
+        {toyData ? (
           <>
             <Heading as="h2" size="2xl" fontWeight="bold" mb="2rem">
               Update Your Order
             </Heading>
             <Text fontSize="sm">Toy</Text>
-            <Input disabled value={toyData.data.artToy.name} type="text" width="30%" />
             <Text fontSize="sm" mt="1rem">
               Amount (1-5)
             </Text>
             <NumberInput.Root
               defaultValue={toyData.data.orderAmount}
               width="30%"
-              disabled={toyData.data.artToy.availableQuota + toyData.data.orderAmount < 1}
+              disabled={
+                toyData.data.artToy.availableQuota + toyData.data.orderAmount <
+                1
+              }
               min={1}
-              max={Math.min(toyData.data.artToy.availableQuota + toyData.data.orderAmount, 5)}
+              max={Math.min(
+                toyData.data.artToy.availableQuota + toyData.data.orderAmount,
+                5
+              )}
               onValueChange={({ valueAsNumber }) => setAmount(valueAsNumber)}
             >
               <NumberInput.Control />
@@ -105,7 +125,10 @@ export default function EditOrderPage({
                 Delete
               </Button>
             </ButtonGroup>
-          </> : <></>}
+          </>
+        ) : (
+          <></>
+        )}
       </VStack>
     </Box>
   );
