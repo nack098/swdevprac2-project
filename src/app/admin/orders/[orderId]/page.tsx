@@ -97,6 +97,12 @@ export default function EditOrderPage({
               Update Your Order
             </Heading>
             <Text fontSize="sm">Toy</Text>
+            <Input
+              disabled
+              value={toyData.data.artToy.name}
+              type="text"
+              width="100%"
+            />
             <Text fontSize="sm" mt="1rem">
               Amount (1-5)
             </Text>
