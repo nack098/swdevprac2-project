@@ -48,7 +48,7 @@ export default function AdminPage() {
   }
 
   return (
-    <Box w="full" marginTop="3rem" paddingX="15rem" h="full">
+    <Box w="full" marginTop="3rem" paddingX={{ md: "15rem" }} h="full">
       <Heading fontSize="4xl" fontWeight="bold" lineHeight="4rem">
         Admin Board
       </Heading>

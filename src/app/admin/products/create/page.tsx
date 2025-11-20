@@ -1,6 +1,7 @@
 "use client";
 import { use, useState } from "react";
 import {
+  Stack,
   Box,
   Image,
   HStack,
@@ -81,19 +82,20 @@ export default function ProductPage() {
   return (
     <Box
       paddingX="2rem"
-      marginX="10rem"
+      marginX={{ md: "10rem" }}
       paddingY="3rem"
       marginY="2rem"
       rounded="md"
       boxShadow={{ _light: "0 0 0.1rem 0 black", _dark: "0 0 0.1rem 0 white" }}
     >
-      <HStack
+      <Stack
         justifyContent="center"
         gap="12rem"
+        direction={{ base: "column", md: "row" }}
         align="start"
         textAlign="left"
       >
-        <Box height="50rem" width="50rem" rounded="md" bg="gray.400">
+        <Box height="50rem" maxWidth="50rem" rounded="md" bg="gray.400">
           <Image
             src={posterPicture}
             height="full"
@@ -103,7 +105,7 @@ export default function ProductPage() {
         </Box>
         <Box
           as="form"
-          width="35rem"
+          width={{ base: "full", md: "35rem" }}
           p="1rem"
           rounded="md"
           onSubmit={(e) => {
@@ -180,7 +182,7 @@ export default function ProductPage() {
             Create
           </Button>
         </Box>
-      </HStack>
+      </Stack>
     </Box>
   );
 }

@@ -3,7 +3,7 @@ import { use, useEffect, useState } from "react";
 import {
   Box,
   Image,
-  HStack,
+  Stack,
   Heading,
   Text,
   Button,
@@ -112,14 +112,14 @@ export default function ProductPage({
   return (
     <Box
       paddingX="2rem"
-      marginX="10rem"
+      marginX={{ md: "10rem" }}
       paddingY="3rem"
       marginY="2rem"
       rounded="md"
       boxShadow={{ _light: "0 0 0.1rem 0 black", _dark: "0 0 0.1rem 0 white" }}
     >
-      <HStack justifyContent="center" gap="2rem" align="start" textAlign="left">
-        <Box height="40rem" width="40rem" rounded="md" bg="gray.400">
+      <Stack justifyContent="center" gap="2rem" align="start" textAlign="left" direction={{ base: "column", md: "row" }}>
+        <Box height="40rem" maxWidth="40rem" rounded="md" bg="gray.400">
           <Image
             src={posterPicture}
             height="full"
@@ -127,7 +127,7 @@ export default function ProductPage({
             objectFit="cover"
           />
         </Box>
-        <Box width="35rem" p="1rem" rounded="md">
+        <Box width="full" maxWidth={"35rem"} p="1rem" rounded="md">
           <Field.Root>
             <Field.Label>
               SKU <Field.RequiredIndicator />
@@ -182,15 +182,15 @@ export default function ProductPage({
             />
           </Field.Root>
           <ButtonGroup>
-            <Button width="15rem" bg="purple.600" onClick={handleUpdate}>
+            <Button maxWidth="15rem" bg="purple.600" onClick={handleUpdate}>
               Save
             </Button>
-            <Button width="15rem" bg="red.600" onClick={handleDelete}>
+            <Button maxWidth="15rem" bg="red.600" onClick={handleDelete}>
               Delete
             </Button>
           </ButtonGroup>
         </Box>
-      </HStack>
+      </Stack>
     </Box>
   );
 }
