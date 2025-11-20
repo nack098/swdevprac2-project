@@ -45,7 +45,7 @@ export default function Navbar() {
                   Admin Panel
                 </Link>
               }
-              <Button onClick={() => signOut()}>
+              <Button bg="none" border="none" onClick={() => signOut()} textDecorationColor="black" padding="0.5rem" display={{ base: "none", md: "block" }} color={{ _dark: "gray.300", _light: "gray.700" }} fontSize="sm" textDecoration={{ _hover: "underline" }}>
                 Logout
               </Button>
             </>
@@ -91,6 +91,11 @@ export default function Navbar() {
                           </Link>
                         </Menu.Item>
                       }
+                      <Menu.Item asChild value="logout">
+                        <Button bg="none" border="none" onClick={() => signOut()} textDecorationColor="gray.200" padding="0.5rem" color={{ _dark: "gray.300", _light: "gray.700" }} fontSize="sm" textDecoration={{ _hover: "underline" }}>
+                          Logout
+                        </Button>
+                      </Menu.Item>
                     </>
                     :
                     <>

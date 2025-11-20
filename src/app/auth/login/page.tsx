@@ -21,7 +21,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const normalSize = useBreakpointValue({ base: false, sm: false, md: true });
+  const normalSize = useBreakpointValue({ base: false, sm: false, lg: true });
 
   const handleLogin = async () => {
     const result = await signIn("credentials", {
@@ -101,7 +101,7 @@ export default function LoginPage() {
                   fontWeight="bold"
                   fontSize="xl"
                   mt="2rem"
-                  color="black"
+                  color={{ _dark: "white", _light: "black" }}
                 >
                   Login
                 </Heading>
@@ -153,6 +153,10 @@ export default function LoginPage() {
       )}
       {!normalSize && (
         <Box
+          position="fixed"
+          top="50%"
+          left="50%"
+          transform="translate(-50%,-50%)"
           w="24rem"
           h="32rem"
           p="2rem"
@@ -160,7 +164,7 @@ export default function LoginPage() {
         >
           <form>
             <VStack>
-              <Heading as="h2" fontWeight="bold" fontSize="xl" mt="2rem">
+              <Heading as="h2" fontWeight="bold" fontSize="xl" mt="2rem" color={{ _dark: "white", _light: "black" }}>
                 Login
               </Heading>
               <InputGroup startElement={<LuMail />} mt="2rem">
@@ -192,7 +196,7 @@ export default function LoginPage() {
               <Text
                 fontSize="2xs"
                 mt="2rem"
-                color={{ _light: "white", _dark: "gray.700" }}
+                color={{ _dark: "white", _light: "gray.700" }}
               >
                 Don't have an account? Click{" "}
                 <Link

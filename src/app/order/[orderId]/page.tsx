@@ -2,6 +2,7 @@
 
 import { getById, del, put } from "@/libs/apis/orders";
 import {
+  Box,
   Button,
   ButtonGroup,
   Heading,
@@ -71,37 +72,41 @@ export default function EditOrderPage({
     }
   };
   return (
-    <VStack>
-      {toyData ?
-        <>
-          <Heading as="h2" size="2xl" fontWeight="bold" mb="2rem">
-            Update Your Order
-          </Heading>
-          <Text fontSize="sm">Toy</Text>
-          <Input disabled value={toyData.data.artToy.name} type="text" width="30%" />
-          <Text fontSize="sm" mt="1rem">
-            Amount (1-5)
-          </Text>
-          <NumberInput.Root
-            defaultValue={toyData.data.orderAmount}
-            width="30%"
-            disabled={toyData.data.artToy.availableQuota + toyData.data.orderAmount < 1}
-            min={1}
-            max={Math.min(toyData.data.artToy.availableQuota + toyData.data.orderAmount, 5)}
-            onValueChange={({ valueAsNumber }) => setAmount(valueAsNumber)}
-          >
-            <NumberInput.Control />
-            <NumberInput.Input />
-          </NumberInput.Root>
-          <ButtonGroup mt="2rem">
-            <Button bg="purple.600" onClick={handleUpdate}>
-              Save
-            </Button>
-            <Button bg="red.600" onClick={handleDelete}>
-              Delete
-            </Button>
-          </ButtonGroup>
-        </> : <></>}
-    </VStack>
+    <Box display="flex" width="full" justifyContent="center" marginTop="2rem">
+      <VStack width="full" maxWidth="30rem" paddingY="3rem" paddingX="4rem" bg={{ _dark: "gray.900", _light: "gray.100" }}
+        boxShadow={{ _light: "0 0 0.1rem 0 black", _dark: "0 0 0.1rem 0 white" }} rounded="md"
+      >
+        {toyData ?
+          <>
+            <Heading as="h2" size="2xl" fontWeight="bold" mb="2rem">
+              Update Your Order
+            </Heading>
+            <Text fontSize="sm">Toy</Text>
+            <Input disabled value={toyData.data.artToy.name} type="text" width="30%" />
+            <Text fontSize="sm" mt="1rem">
+              Amount (1-5)
+            </Text>
+            <NumberInput.Root
+              defaultValue={toyData.data.orderAmount}
+              width="30%"
+              disabled={toyData.data.artToy.availableQuota + toyData.data.orderAmount < 1}
+              min={1}
+              max={Math.min(toyData.data.artToy.availableQuota + toyData.data.orderAmount, 5)}
+              onValueChange={({ valueAsNumber }) => setAmount(valueAsNumber)}
+            >
+              <NumberInput.Control />
+              <NumberInput.Input />
+            </NumberInput.Root>
+            <ButtonGroup mt="2rem">
+              <Button bg="purple.600" color="gray.200" onClick={handleUpdate}>
+                Save
+              </Button>
+              <Button bg="red.600" color="gray.200" onClick={handleDelete}>
+                Delete
+              </Button>
+            </ButtonGroup>
+          </> : <></>}
+      </VStack>
+    </Box>
   );
 }

@@ -3,7 +3,7 @@ import { use, useEffect, useState } from "react";
 import {
   Box,
   Image,
-  HStack,
+  Stack,
   Heading,
   Text,
   Button,
@@ -39,20 +39,21 @@ export default function ProductPage({ params }: { params: Promise<Props> }) {
   return (
     <Box
       paddingX="2rem"
-      marginX="10rem"
+      marginX={{ base: "2rem", md: "10rem" }}
       paddingY="3rem"
       marginY="2rem"
       rounded="md"
       boxShadow={{ _light: "0 0 0.1rem 0 black", _dark: "0 0 0.1rem 0 white" }}
     >
       {data ? (
-        <HStack
+        <Stack
+          direction={{ base: "column", xl: "row" }}
           justifyContent="center"
           gap="2rem"
           align="start"
           textAlign="left"
         >
-          <Box height="40rem" width="40rem" rounded="md" bg="gray.400">
+          <Box height="40rem" maxWidth="40rem" rounded="md" bg="gray.400">
             <Image
               src={product.posterPicture}
               height="full"
@@ -60,7 +61,7 @@ export default function ProductPage({ params }: { params: Promise<Props> }) {
               objectFit="cover"
             />
           </Box>
-          <Box width="35rem" rounded="md">
+          <Box maxWidth="35rem" rounded="md">
             <Text>{product.sku}</Text>
             <Heading as="h1" fontSize="5xl" fontWeight="bold" lineHeight="3rem">
               {product.name}
@@ -114,7 +115,7 @@ export default function ProductPage({ params }: { params: Promise<Props> }) {
               </Text>
             </Box>
           </Box>
-        </HStack>
+        </Stack>
       ) : (
         <></>
       )}
