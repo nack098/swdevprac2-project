@@ -72,7 +72,7 @@ export default function ProductPage({ params }: { params: Promise<Props> }) {
             <Text height="39rem" width="30rem" marginTop="1rem">
               {product.description}
             </Text>
-            <Box display="flex" flexDirection="row">
+            <Box display="flex" flexDirection="row" gap="2rem">
               <NumberInput.Root
                 defaultValue="1"
                 height="2rem"
@@ -103,7 +103,12 @@ export default function ProductPage({ params }: { params: Promise<Props> }) {
               >
                 {product.availableQuota > 0 ? "Order" : "Out of stock"}
               </Button>
-              <Text color="red" textAlign={"center"} height="full">
+              <Text
+                color="red"
+                fontSize="sm"
+                textAlign={"center"}
+                height="full"
+              >
                 {" "}
                 {message}{" "}
               </Text>
