@@ -97,13 +97,8 @@ export default async function ProductPage({
       rounded="md"
       boxShadow={{ _light: "0 0 0.1rem 0 black", _dark: "0 0 0.1rem 0 white" }}
     >
-      <HStack
-        justifyContent="center"
-        gap="12rem"
-        align="start"
-        textAlign="left"
-      >
-        <Box height="50rem" width="50rem" rounded="md" bg="gray.400">
+      <HStack justifyContent="center" gap="2rem" align="start" textAlign="left">
+        <Box height="40rem" width="40rem" rounded="md" bg="gray.400">
           <Image
             src={product.posterPicture}
             height="full"
