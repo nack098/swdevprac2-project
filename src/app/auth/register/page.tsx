@@ -20,9 +20,10 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [tel, setTel] = useState("");
   const [password, setPassword] = useState("");
+  const [msg, setMsg] = useState("");
   const router = useRouter();
 
-  const normalSize = useBreakpointValue({ base: false, sm: false, md: true });
+  const normalSize = useBreakpointValue({ base: false, sm: false, lg: true });
 
   const handleRegister = async () => {
     try {
@@ -35,6 +36,7 @@ export default function RegisterPage() {
       const res = await register(registerData);
 
       if (res.status !== 200 && res.status !== 201) {
+        setMsg("Cannot register. May be email was taking.")
         console.error("Register error:", res.statusText);
         return null;
       }
@@ -85,7 +87,7 @@ export default function RegisterPage() {
             </Heading>
             <Heading
               as="h4"
-              fontWeight="semibold"
+              fontWeight="sem ibold"
               fontSize="lg"
               mt="4rem"
               color="white"
@@ -99,8 +101,8 @@ export default function RegisterPage() {
             p="2rem"
             bg={{ _light: "white", _dark: "gray.700" }}
           >
-            <form>
-              <VStack>
+            <form onSubmit={(e) => { e.preventDefault(); handleRegister() }}>
+              <VStack width="full">
                 <Heading as="h2" fontWeight="bold" fontSize="xl">
                   Register
                 </Heading>
@@ -108,6 +110,7 @@ export default function RegisterPage() {
                   <Input
                     placeholder="Name"
                     w="full"
+                    required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
@@ -117,6 +120,7 @@ export default function RegisterPage() {
                     placeholder="Email"
                     w="full"
                     type="email"
+                    required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -126,6 +130,7 @@ export default function RegisterPage() {
                     placeholder="Tel"
                     w="full"
                     value={tel}
+                    required
                     onChange={(e) => setTel(e.target.value)}
                   />
                 </InputGroup>
@@ -134,6 +139,7 @@ export default function RegisterPage() {
                     placeholder="Password"
                     w="full"
                     type="password"
+                    required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -142,7 +148,7 @@ export default function RegisterPage() {
                   size="md"
                   colorPalette="purple"
                   mt="2rem"
-                  onClick={handleRegister}
+                  type="submit"
                 >
                   Confirm
                 </Button>
@@ -161,14 +167,15 @@ export default function RegisterPage() {
                   </Link>{" "}
                   to login.
                 </Text>
+                <Text color="red" textAlign="center">{msg}</Text>
               </VStack>
             </form>
           </Box>
         </Box>
       )}
       {!normalSize && (
-        <Box w="24rem" h="32rem" p="2rem" bg="white">
-          <form>
+        <Box position="fixed" top="50%" left="50%" transform="translate(-50%,-50%)" w="24rem" h="32rem" p="2rem" bg={{ _light: "white", _dark: "gray.700" }}>
+          <form onSubmit={handleRegister}>
             <VStack>
               <Heading as="h2" fontWeight="bold" fontSize="xl" mt="2rem">
                 Register
@@ -210,13 +217,16 @@ export default function RegisterPage() {
               <Button size="md" colorPalette="purple" mt="2rem" type="submit">
                 Confirm
               </Button>
-              <Text fontSize="2xs" mt="2rem" color="black">
+              <Text fontSize="2xs" mt="2rem">
                 Already have an account? Click{" "}
-                <Link variant="underline" href="/auth/login" color="purple">
+                <Link variant="underline" href="/auth/login"
+                  color={{ _light: "purple", _dark: "purple.300" }}
+                >
                   here
                 </Link>{" "}
                 to login.
               </Text>
+              <Text color="red" textAlign="center">{msg}</Text>
             </VStack>
           </form>
         </Box>
