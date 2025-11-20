@@ -32,7 +32,7 @@ export default async function EditOrderPage({
     // Implement order submission logic here
     try {
       const orderData: OrderPutData = {
-        orderAmount: Number(amount),
+        orderAmount: parseInt(amount),
       };
       const res = await put(orderId, orderData, token);
 

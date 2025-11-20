@@ -53,7 +53,7 @@ export default async function ProductPage({
         name,
         description,
         arrivalDate,
-        availableQuota: Number(availableQuota),
+        availableQuota: parseInt(availableQuota),
         posterPicture,
       };
       const res = await put(productId, productData, token);
@@ -103,13 +103,14 @@ export default async function ProductPage({
         align="start"
         textAlign="left"
       >
-        <Image
-          src={product.posterPicture}
-          height="50rem"
-          width="50rem"
-          objectFit="cover"
-          rounded="md"
-        />
+        <Box height="50rem" width="50rem" rounded="md" bg="gray.400">
+          <Image
+            src={product.posterPicture}
+            height="full"
+            width="full"
+            objectFit="cover"
+          />
+        </Box>
         <Box width="35rem" p="1rem" rounded="md">
           <Field.Root>
             <Field.Label>

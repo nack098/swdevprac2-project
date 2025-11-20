@@ -47,7 +47,7 @@ export default function ProductPage() {
         posterPicture,
       };
       const res = await create(productData, token);
-      console.log(res)
+      console.log(res);
 
       if (res.status == 400) {
         alert("Arrival date must not be earlier than the current date");
@@ -57,7 +57,7 @@ export default function ProductPage() {
         return null;
       }
 
-      const data = res.data.data
+      const data = res.data.data;
       const retProd: ProductDetail = {
         _id: data._id,
         sku: data.sku,
@@ -67,8 +67,8 @@ export default function ProductPage() {
         availableQuota: data.availableQuota,
         posterPicture: data.posterPicture,
         createdAt: data.createdAt,
-        updatedAt: data.updatedAt
-      }
+        updatedAt: data.updatedAt,
+      };
       dispatch(addProduct(retProd));
 
       router.replace("/admin/products");
@@ -92,29 +92,43 @@ export default function ProductPage() {
         align="start"
         textAlign="left"
       >
-        <Image
-          src={posterPicture}
-          height="50rem"
-          width="50rem"
-          objectFit="cover"
+        <Box height="50rem" width="50rem" rounded="md" bg="gray.400">
+          <Image
+            src={posterPicture}
+            height="full"
+            width="full"
+            objectFit="cover"
+          />
+        </Box>
+        <Box
+          as="form"
+          width="35rem"
+          p="1rem"
           rounded="md"
-        />
-        <Box as="form" width="35rem" p="1rem" rounded="md" onSubmit={(e) => { e.preventDefault(); handleCreate() }}>
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleCreate();
+          }}
+        >
           <Field.Root>
             <Field.Label>
               SKU <Field.RequiredIndicator />
             </Field.Label>
-            <Input value={sku}
+            <Input
+              value={sku}
               required
-              onChange={(e) => setSku(e.target.value)} />
+              onChange={(e) => setSku(e.target.value)}
+            />
           </Field.Root>
           <Field.Root>
             <Field.Label>
               Toy Name <Field.RequiredIndicator />
             </Field.Label>
-            <Input value={name}
+            <Input
+              value={name}
               required
-              onChange={(e) => setName(e.target.value)} />
+              onChange={(e) => setName(e.target.value)}
+            />
           </Field.Root>
           <Field.Root>
             <Field.Label>

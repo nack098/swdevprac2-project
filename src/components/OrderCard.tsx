@@ -6,12 +6,13 @@ interface Props {
   toyName: string;
   amount: number;
   member?: string;
+  link: string;
 }
 
 export default function OrderCard(props: Props) {
   const router = useRouter();
   const handleEdit = () => {
-    router.push("/order/edit");
+    router.replace(props.link);
   };
   return (
     <Box
